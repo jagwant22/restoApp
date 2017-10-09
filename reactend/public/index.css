@@ -1,0 +1,57 @@
+/*This is the main style sheet*/
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+
+
+body{
+	background: #ddd;
+}
+#heading{
+	text-align: center;
+	background: rgb(38, 138, 138);
+	padding: 3%;
+	color: white;
+	min-width: 100%;
+	font-family: 'Oxygen';
+
+}
+
+.btn-success{
+	background: rgb(38, 138, 138);
+	padding: 2%;
+	border-color: white;
+	transition: 0.3s ease-in-out;
+}
+
+.btn-success:hover{
+	background: white;
+	border-color: rgb(38, 138, 138);
+	color: rgb(38, 138, 138);
+	
+}
+.btn-success:focus{
+	background: rgb(38, 138, 138);
+	color: white;
+}
+
+#footer{
+	position: fixed;
+	bottom: 0;
+	background: white;
+	min-width: 100%;
+	text-align: center;
+	padding: 2%;
+	background: rgb(38, 138, 138);
+	color: white;
+
+}
+.red{
+	color: red;
+}

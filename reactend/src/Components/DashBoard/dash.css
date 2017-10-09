@@ -1,0 +1,17 @@
+/*dashhome stylesheet*/
+
+body{
+	background: #eeeeee;
+}
+
+.glyphicon-menu-hamburger:hover{
+	opacity: 0.66;
+}
+
+#currentLocationBar { 
+	padding: 0.5%;
+	background: white;
+	font-family: "Droid Sans";
+	text-align: right;
+	
+}
