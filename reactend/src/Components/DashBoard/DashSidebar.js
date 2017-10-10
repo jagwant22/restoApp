@@ -8,6 +8,15 @@ class Sidebar extends React.Component{
         super(props);
         this.state = {date : new Date()};
     }
+    // logOutClick(){
+    //     var keys = Object.keys(sessionStorage);
+    //     for(var key = 0;key<keys.length;key++){
+    //         sessionStorage.setItem(keys[key], null);
+
+    //     }
+    //     window.location.replace('/');
+    // }
+
     componentDidMount(){
         this.timerId = setInterval(
             () => this.tick(),
@@ -32,7 +41,7 @@ class Sidebar extends React.Component{
                         <center>
                             
                             
-                            <h5>Restaurant Name </h5>
+                            <h5>Menu</h5>
                             <hr id='nav_hr' />
                         </center>
                         <ul>
@@ -41,6 +50,7 @@ class Sidebar extends React.Component{
                         <li><a className='sidenav_btn' >Menus</a></li>
                         <li><a className='sidenav_btn' >Promotions and Offers</a></li>
                         <li><a className='sidenav_btn' >Settings</a></li>
+                        <li><a className='sidenav_btn' >Logout</a></li>
                         </ul>                
                         
                         

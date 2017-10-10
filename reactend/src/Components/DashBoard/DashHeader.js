@@ -41,6 +41,13 @@ class TopNav extends React.Component{
 }
 
     toggleSideBar(){
+        console.log($("#sidebar").css('display'));
+        if($("#sidebar").css("display") === 'none'){
+            console.log("Moving main content a little bit...");
+            $("#main_content").css("margin-left", "30vh");
+        }else{
+            $("#main_content").css("margin-left", "0");
+        }
         $("#sidebar").toggle();
     }
 

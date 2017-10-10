@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import DashHeader from './DashHeader';
 import DashSidebar from './DashSidebar';
 import CurrentLocation from './CurrentLocation';
+import LiveOrder from '../Core/LiveOrder.js';
 import './dash.css';
 import $ from 'jquery';
 
@@ -40,6 +41,10 @@ export default class DashHome extends Component{
 				<DashHeader />
 				<DashSidebar />
 				<CurrentLocation />
+				<div id='main_content'>
+					<LiveOrder />
+				</div>
+				
 				</div>
 			
 

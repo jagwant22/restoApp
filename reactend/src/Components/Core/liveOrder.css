@@ -1,1 +1,30 @@
-Live Order Css
+/*Live Order Css*/
+
+#liveOrders{
+	padding-top:1%;
+	background:white;
+	color:black;
+	height:60vh;
+	margin-top:3%;
+	border-radius:5px;
+	margin-left:5%;
+	
+}
+
+#liveOrders  legend {
+
+	color:#aaa;
+	text-align:right;
+}
+
+#live_orders_main{
+	height:50vh;
+	overflow-y: auto;
+}
+
+.order_card{
+	border:1px solid black;
+	padding : 2%;
+	height:10vh;
+	
+}
