@@ -1,11 +1,12 @@
 #sidebar{
     min-height: 100%;
-    display: none;
     width: 30vh;
+    margin-left: -1000px;
     color: white;
     position: absolute;
     background: rgb(38, 138, 138);
     z-index:999999;
+    transition: 0.3s ease-in-out;
 
 }
 
@@ -31,5 +32,28 @@ li a:hover{
 
 #sidebar hr{
     min-width: 100%;
+
+}
+
+.sidebar_icon{
+    float: right;
+}
+
+a.sidenav_btn{
+    color: white;
+    text-decoration: none;
+    
+}
+.sidenav_item{
+    transition: 0.2s ease-in;
+    cursor: pointer;
+}
+.sidenav_item:hover{
+    background:white;
+    color:rgb(38, 138, 138);
+}
+
+#sidenav_ul{
+    padding-left: 5%;
 
 }

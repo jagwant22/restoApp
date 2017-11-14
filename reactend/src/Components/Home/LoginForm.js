@@ -91,6 +91,7 @@ export default class LoginForm extends Component{
 				if(response.result === 'SUCCESS' && response.status===200){
 					$("#message_holder").html("<span class='success'>Logging you in. Welcome.</span>")
 					sessionStorage.setItem('username', data_to_send['username']);
+					sessionStorage.setItem('id', response.data.id);
 					sessionStorage.setItem('name', response.data.resto_name);
 					sessionStorage.setItem('loggedIn', true);
 					

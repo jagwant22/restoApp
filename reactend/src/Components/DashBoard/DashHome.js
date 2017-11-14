@@ -14,13 +14,14 @@ export default class DashHome extends Component{
 	}
 	constructor(props){
 		super(props);
-		
+		window.id = sessionStorage.getItem('id');
 		console.log("Loaded this");
 		
 	}
 	checkLogIn(){
 		var userName = sessionStorage.getItem('username');
 		var loggedIn = sessionStorage.getItem('loggedIn');
+
 		console.log("LOGGED IN? : ", loggedIn);
 		console.log("USERNAME : ", userName);
 		if(loggedIn === 'true'){
@@ -42,7 +43,7 @@ export default class DashHome extends Component{
 				<DashSidebar />
 				<CurrentLocation />
 				<div id='main_content'>
-					<LiveOrder />
+					<LiveOrder id={window.id} />
 				</div>
 				
 				</div>

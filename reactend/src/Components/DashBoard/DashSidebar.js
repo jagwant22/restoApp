@@ -32,6 +32,17 @@ class Sidebar extends React.Component{
             date : new Date()
         });
     }
+
+    logout(){
+        var i = sessionStorage.length;
+        while(i--) {
+          var key = sessionStorage.key(i);
+          
+          sessionStorage.removeItem(key);
+          
+        }
+        window.location = "/";
+    }
     render(){
         return(
             
@@ -44,13 +55,13 @@ class Sidebar extends React.Component{
                             <h5>Menu</h5>
                             <hr id='nav_hr' />
                         </center>
-                        <ul>
-                        <li><a className='sidenav_btn' >Home</a></li>
-                        <li><a className='sidenav_btn' >Orders</a></li>
-                        <li><a className='sidenav_btn' >Menus</a></li>
-                        <li><a className='sidenav_btn' >Promotions and Offers</a></li>
-                        <li><a className='sidenav_btn' >Settings</a></li>
-                        <li><a className='sidenav_btn' >Logout</a></li>
+                        <ul id='sidenav_ul'>
+                        <a className='sidenav_btn'><li className='sidenav_item'>Home <i className='glyphicon glyphicon-home sidebar_icon'></i></li></a>
+                        <a className='sidenav_btn' ><li className='sidenav_item'>Orders</li></a>
+                        <a className='sidenav_btn' ><li className='sidenav_item'>Menus</li></a>
+                        <a className='sidenav_btn' ><li className='sidenav_item'>Promotions and Offers</li></a>
+                        <a className='sidenav_btn'><li className='sidenav_item'>Settings</li></a>
+                        <a className='sidenav_btn' onClick={this.logout}><li className='sidenav_item'>Logout</li></a>
                         </ul>                
                         
                         

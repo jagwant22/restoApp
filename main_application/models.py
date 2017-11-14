@@ -4,6 +4,7 @@ from django.db import models
 import json
 from django.utils import timezone
 import hashlib 
+from customer_application.models import Customer
 
 
 # Models for the Business End of the Application. The mobile end models will be defined in a separate application. 
@@ -59,11 +60,13 @@ class Subscription(models.Model):
 
 class RestaurantOrder(models.Model):
 	restaurant = models.ForeignKey(Restaurant)
-	# for_customer = models.ManyToManyField(Customer)
+	for_customer = models.ManyToManyField(Customer)
 	number_of_items = models.CharField(max_length=20, null=False, blank=False)
 	order_details = models.TextField(blank=False, null=False, default=json.dumps({"item_name":"","item_id":"","item_quantity":"","special_instruction":"","submenu":"","item_type":"","item_cuisine":""}))
 	order_time = models.DateTimeField(default = timezone.now())
-
+	order_status_choices = (('Pending', 'Pending'), ('Completed', 'Completed'), ('Cancelled', 'Cancelled'), ('Kitchen', 'Kitchen'), ('Received', 'Received'))
+	order_status = models.CharField(max_length = 20, choices = order_status_choices, blank=False, null=False, default= 'Received')
+	
 	class Meta : 
 		verbose_name = 'Restaurant Order'
 		verbose_name_plural = 'Restaurant Orders'
@@ -72,10 +75,34 @@ class RestaurantOrder(models.Model):
 	def __str__(self):
 		return str(self.restaurant) + " | " + str(self.pk)
 
+	def serializeModel(self):
+		# Get JSON For Model Object
+		returnDict = dict()
+		
+		returnDict['order_id'] = self.pk
+		returnDict['restaurant'] = self.restaurant.login_id
+		tempArray  =[]
+		customer_list = self.for_customer.all()
+		print customer_list
+		for customer in customer_list:
+			tempDict = dict()
+			tempDict['phone'] = customer.phone
+			tempDict['name'] = customer.first_name + " " + customer.last_name
+			tempArray.append(tempDict)
+
+		returnDict['customer_information'] = tempArray
+		returnDict['item_count'] = self.number_of_items
+		returnDict['order_details'] = json.loads(self.order_details)
+		returnDict['order_time'] = self.order_time
+		returnDict['order_status'] = self.order_status
+
+		return returnDict
+
+
 class Tables(models.Model):
 	restaurant = models.ForeignKey(Restaurant)
 	table_id = models.CharField(max_length=10, null=False, blank=False)
-	# current_customers = models.ManyToManyField(Customer)
+	current_customers = models.ManyToManyField(Customer)
 	total_head_count = models.IntegerField(null=False, blank=False)
 	start_time = models.DateTimeField(default = timezone.now)
 

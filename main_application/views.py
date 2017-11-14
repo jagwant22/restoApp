@@ -16,6 +16,14 @@ def author_info(request):
 	aboutData['description'] = 'Fellow Peasant, Fellow Butcher'
 	return JsonResponse(aboutData, status = 200)
 
+def returnDashboard(request):
+	try:
+		print "inside this"
+		username = request.session['username']
+		print "Got Username ", username
+		return render(request, 'dashboard.html', context = {})	
+	except:
+		return HttpResponseRedirect('/')
 
 class RestaurantView(View):
 	@method_decorator(csrf_exempt)
@@ -103,6 +111,7 @@ class RestaurantLoginView(View):
 				new_resto_pass = RestaurantLogin.objects.get(restaurant = Restaurant.objects.get(login_id = login_id), password = password)
 				data = dict()
 				data['resto_name'] = new_resto_pass.restaurant.name
+				data['id'] = new_resto_pass.pk
 				print "RESTO NAME : ", data['resto_name']
 				result['status'] = 200
 				result['result'] = 'SUCCESS'
@@ -142,17 +151,34 @@ class TableView(View):
 
 		return JsonResponse(result, status = 200)
 
-	
-	
-		
-def returnDashboard(request):
-	try:
-		print "inside this"
-		username = request.session['username']
-		print "Got Username ", username
-		return render(request, 'dashboard.html', context = {})	
-	except:
-		return HttpResponseRedirect('/')
 
 
+class RestaurantOrderView(View):
+	@method_decorator(csrf_exempt)
+	def dispatch(self, request, *args, **kwargs):
+		return super(RestaurantOrderView, self).dispatch(request, *args, **kwargs)
+
+	def get(self, request):
+		result = dict()
+		try:
+			restaurant_id = request.GET['id']
+			print "Trying to get Restaurant with primary key : ", restaurant_id
+			restaurant_object = Restaurant.objects.get(pk = restaurant_id)
+			order_objects = RestaurantOrder.objects.filter(restaurant = restaurant_object).exclude(order_status = 'Completed').order_by("-pk")
+			order_details = []
+			for order in order_objects:
+				order_details.append(order.serializeModel())
+
+			result['result'] = "SUCCESS"
+			result['status'] = 200
+			result['order_info'] = order_details
+		except Exception as E:
+			result['result'] = 'FAILURE'
+			result['status'] = 500
+			result['reason'] = str(E)
+
+		return JsonResponse(result, status=200)
+
+	def post(self, request):
+		pass 
 	

@@ -33,22 +33,33 @@ var heading_center = {
 function confirmLogout(){
     var a = alert('Want to LogOut??');
 }
+var status = 0;
 class TopNav extends React.Component{
     toTitleCase(str) {
     return str.replace(/(?:^|\s)\w/g, function(match) {
         return match.toUpperCase();
     });
 }
-
+    
     toggleSideBar(){
-        console.log($("#sidebar").css('display'));
-        if($("#sidebar").css("display") === 'none'){
+        
+        
+        if(status == 0 ){
             console.log("Moving main content a little bit...");
             $("#main_content").css("margin-left", "30vh");
+            $(".leftBarIcon").css("margin-left","23.5vh");
+            $("#sidebar").css('margin-left', '0');
+            
+            status = 1;
         }else{
+            console.log("Status : " + status);
             $("#main_content").css("margin-left", "0");
+            $(".leftBarIcon").css("margin-left","1vh");
+            $("#sidebar").css('margin-left', '-1000px');
+            
+            status = 0;
         }
-        $("#sidebar").toggle();
+        
     }
 
 
