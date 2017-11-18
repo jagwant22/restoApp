@@ -1,0 +1,17 @@
+/*LiveTables.css*/
+#liveTables{
+	padding-top:1%;
+	background:white;
+	color:black;
+	height:60vh;
+	margin-top:3%;
+	border-radius:5px;
+	margin-left:5%;
+	
+}
+
+legend{
+	text-align: right;
+	color: #aaa;
+	font-family: 'Oxygen';
+}

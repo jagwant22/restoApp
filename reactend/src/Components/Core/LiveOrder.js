@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import './liveOrder.css';
 import $ from 'jquery';
 import OrderRow from './OrderRow.js';
+import OrderDetail from './OrderDetail.js';
+import LiveTables from './LiveTables.js';
 
 const h5style = {
         fontWeight : "600",
@@ -53,7 +55,7 @@ export default class LiveOrder extends Component{
         var orders = this.state.pending_orders;
         if(orders.length > 0){
             var orders_mapped = orders.map((order) => {
-                return <OrderRow key={order.order_id}  order_id={order.order_id} customer_name ={order.customer_information[0].name} customer_phone = {order.customer_information[0].phone} status={order.order_status}/>
+                return <OrderRow key={order.order_id}  order_id={order.order_id} table_number= {order.table_number} customer_name ={order.customer_information[0].name} customer_phone = {order.customer_information[0].phone} status={order.order_status}/>
             });
         }
         
@@ -68,14 +70,29 @@ export default class LiveOrder extends Component{
                                 <div className='col-sm-12'>
                                 <h5 style = {h5style}>Current/ Pending Orders</h5>
                                     {orders_mapped}
-                                                            
+                                     <OrderDetail />                       
 
                                 </div>
                             </div>
                     	</div>
                     </div>
                 </div>
+                <div className='col-sm-4 col-xs-4 col-lg-4 col-md-4'  id='liveTables'>
+                    <div className='col-sm-12 col-xs-12 col-md-12 col-lg-12'>
+                        <legend>Tables </legend>
+                        <div id='live_tables_main'>
+                            <div className= 'row ' >
+                                <div className='col-sm-12'>
+                                <h5 style = {h5style}>Tables Occupied</h5>
+                                    <LiveTables />       
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+            
 
         );
 

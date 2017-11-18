@@ -58,6 +58,29 @@ class Subscription(models.Model):
 	def __str__(self):
 		return str(self.subscription_type)
 
+
+class Tables(models.Model):
+	restaurant = models.ForeignKey(Restaurant)
+	table_id = models.CharField(max_length=10, null=False, blank=False, default=None)
+	current_customers = models.ManyToManyField(Customer)
+	total_head_count = models.IntegerField(null=False, blank=False)
+	start_time = models.DateTimeField(default = timezone.now)
+
+	def serializeModel(self):
+		dataDict = dict()
+		dataDict['restaurant'] = self.restaurant.login_id
+		dataDict['table_id'] = self.table_id
+		dataDict['head_count'] = self.total_head_count
+		dataDict['start_time'] = (str(self.start_time).split("+"))[0]
+
+		return dataDict
+
+
+	class Meta:
+		verbose_name = "Table"
+		verbose_name_plural = "Tables"
+
+
 class RestaurantOrder(models.Model):
 	restaurant = models.ForeignKey(Restaurant)
 	for_customer = models.ManyToManyField(Customer)
@@ -66,7 +89,8 @@ class RestaurantOrder(models.Model):
 	order_time = models.DateTimeField(default = timezone.now())
 	order_status_choices = (('Pending', 'Pending'), ('Completed', 'Completed'), ('Cancelled', 'Cancelled'), ('Kitchen', 'Kitchen'), ('Received', 'Received'))
 	order_status = models.CharField(max_length = 20, choices = order_status_choices, blank=False, null=False, default= 'Received')
-	
+	table_id =models.CharField(max_length=100, null=False, blank=False, default="0")
+
 	class Meta : 
 		verbose_name = 'Restaurant Order'
 		verbose_name_plural = 'Restaurant Orders'
@@ -94,31 +118,11 @@ class RestaurantOrder(models.Model):
 		returnDict['item_count'] = self.number_of_items
 		returnDict['order_details'] = json.loads(self.order_details)
 		returnDict['order_time'] = self.order_time
+		returnDict['table_number'] = self.table_id
 		returnDict['order_status'] = self.order_status
 
 		return returnDict
 
-
-class Tables(models.Model):
-	restaurant = models.ForeignKey(Restaurant)
-	table_id = models.CharField(max_length=10, null=False, blank=False)
-	current_customers = models.ManyToManyField(Customer)
-	total_head_count = models.IntegerField(null=False, blank=False)
-	start_time = models.DateTimeField(default = timezone.now)
-
-	def serializeModel(self):
-		dataDict = dict()
-		dataDict['restaurant'] = self.restaurant.login_id
-		dataDict['table_id'] = self.table_id
-		dataDict['head_count'] = self.total_head_count
-		dataDict['start_time'] = (str(self.start_time).split("+"))[0]
-
-		return dataDict
-
-
-	class Meta:
-		verbose_name = "Table"
-		verbose_name_plural = "Tables"
 
 
 

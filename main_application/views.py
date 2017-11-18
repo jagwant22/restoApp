@@ -8,6 +8,9 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views import View
 import json
 
+# @method_decorator(csrf_exempt, name='dispatch')
+
+
 def author_info(request):
 	aboutData = dict()
 	aboutData['name'] = 'Jagwant Sehgal'
@@ -151,7 +154,9 @@ class TableView(View):
 
 		return JsonResponse(result, status = 200)
 
-
+	def post(self, request):
+		result = dict()
+		pass
 
 class RestaurantOrderView(View):
 	@method_decorator(csrf_exempt)
