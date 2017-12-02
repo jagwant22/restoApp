@@ -125,4 +125,15 @@ class RestaurantOrder(models.Model):
 
 
 
+class RestaurantSetting(models.Model):
+	
+	restaurant = models.ForeignKey(Restaurant)
+	table_count = models.CharField(max_length=20, null=False, blank=False, default=0)
+	timings = models.TextField(null=False, blank=False, default=json.dumps([{"day_range":[], "timings":[{"from_time":"to_time"}]}]))
+
+	def serializeModel(self):
+		returnDict = dict()
+		returnDict['table_count'] = self.table_count
+		returnDict['timings'] = json.loads(self.timings)
+
 

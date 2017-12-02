@@ -140,7 +140,7 @@ class TableView(View):
 	def get(self, request):
 		result = dict()
 		login_id = request.GET['login_id']
-		resto_obj = Restaurant.objects.get(login_id = login_id)
+		resto_obj = Restaurant.objects.get(pk = login_id)
 		table_objs = Tables.objects.filter(restaurant = resto_obj)
 		data_listing = []
 		for each in table_objs:
@@ -186,4 +186,19 @@ class RestaurantOrderView(View):
 
 	def post(self, request):
 		pass 
+
+@method_decorator(csrf_exempt, name='dispatch')
+class RestaurantSettingsView(View):
 	
+	def get(self, request):
+		# Get Restaurant Settings
+		pass
+	def post(self, request):
+		# Add Restaurant Settings
+		pass
+
+	def patch(self, request):
+		# Update restaurant settings
+		pass
+		
+

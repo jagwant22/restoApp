@@ -76,7 +76,7 @@ class TopNav extends React.Component{
                 <div className='col-sm-12'>
                     <div id='resto_info_holder'>
                         <div style={heading_center}>Fingerfood</div>
-                        <span className='leftBarIcon'>
+                        <span className='leftBarIcon' style={{transition:0.3 + "s"}}>
                             <i className='glyphicon glyphicon-menu-hamburger' style={menuBar} onClick={this.toggleSideBar}></i>
                         </span>
                         

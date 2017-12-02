@@ -4,6 +4,7 @@ import $ from 'jquery';
 import OrderRow from './OrderRow.js';
 import OrderDetail from './OrderDetail.js';
 import LiveTables from './LiveTables.js';
+import swal from 'sweetalert';
 
 const h5style = {
         fontWeight : "600",
@@ -19,12 +20,18 @@ export default class LiveOrder extends Component{
         super(props);
         console.log(this.props.id);
         this.state = {
-            pending_orders:[]
+            pending_orders:[],
+            table_info :[]
         }
     }
+    
     componentDidMount(){
         this.pOrders = setInterval(
             () => this.updateOrders(),
+            4000
+            );
+        this.tInfo = setInterval(
+            () => this.updateTables(),
             4000
             );
     }
@@ -48,14 +55,41 @@ export default class LiveOrder extends Component{
         });
     }
 
+    updateTables(){
+        
+        $.ajax({
+            url:"/main/table?login_id="+this.props.id,
+            success:(response) => {
+                this.renderTables(response.data);
+            },
+            error: (err) => {
+                swal("Error!", "Tables could not be updated!", "error");
+            }
+        });
+    }
+
+    renderTables(table_data){
+        this.setState({table_info: table_data});
+    }
+
+    
+
     
 
 
     render(){
         var orders = this.state.pending_orders;
+        var tables = this.state.table_info;
+        
+
         if(orders.length > 0){
             var orders_mapped = orders.map((order) => {
                 return <OrderRow key={order.order_id}  order_id={order.order_id} table_number= {order.table_number} customer_name ={order.customer_information[0].name} customer_phone = {order.customer_information[0].phone} status={order.order_status}/>
+            });
+        }
+        if(tables.length > 0){
+            var tables_mapped = tables.map((table) => {
+                return <LiveTables table_id={table.table_id} start_time={table.start_time} />
             });
         }
         
@@ -84,7 +118,13 @@ export default class LiveOrder extends Component{
                             <div className= 'row ' >
                                 <div className='col-sm-12'>
                                 <h5 style = {h5style}>Tables Occupied</h5>
-                                    <LiveTables />       
+                                    <div className='col-sm-12' id='table_heading'>
+                                        <div className='col-sm-3'>Table No.</div>
+                                        <div className='col-sm-3'>Details</div>
+                                        <div className='col-sm-3'>Start Time</div>
+                                        <div className='col-sm-3'>End Visit</div>
+                                    </div>
+                                    {tables_mapped}      
 
                                 </div>
                             </div>

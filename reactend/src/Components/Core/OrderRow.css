@@ -1,7 +1,11 @@
+.item_row{
+	text-align: center;
+}
 
 .order_inner_heading{
 	font-size: 12px;
-	font-family: Oxygen;
+	font-family: Droid Sans;
+	text-align: center;
 	border-bottom: 1px solid #ddd;
 }
 
@@ -18,6 +22,7 @@ span{
 .item_detail{
 	font-size: 11px;
 	font-weight: 500;
-	font-family: Oxygen;
+	font-family: Droid Sans;
+	text-align: center;
 }
 
