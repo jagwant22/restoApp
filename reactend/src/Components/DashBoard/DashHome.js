@@ -3,6 +3,7 @@ import DashHeader from './DashHeader';
 import DashSidebar from './DashSidebar';
 import CurrentLocation from './CurrentLocation';
 import LiveOrder from '../Core/LiveOrder.js';
+import TableRequest from '../Core/TableRequest.js';
 import './dash.css';
 import $ from 'jquery';
 
@@ -44,6 +45,7 @@ export default class DashHome extends Component{
 				<CurrentLocation />
 				<div id='main_content'>
 					<LiveOrder id={window.id} />
+					<TableRequest id={window.id} />
 				</div>
 				
 				</div>

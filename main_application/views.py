@@ -5,8 +5,10 @@ from django.shortcuts import render, HttpResponse
 from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
+from datetime import datetime
 from django.views import View
 import json
+from django.core.exceptions import ValidationError
 
 # @method_decorator(csrf_exempt, name='dispatch')
 
@@ -202,3 +204,64 @@ class RestaurantSettingsView(View):
 		pass
 		
 
+@method_decorator(csrf_exempt, name='dispatch')
+class CustomerRequestsView(View):
+
+	def get(self, request):
+		# Get all requests for the current date
+		print "Inside Get Customer request"
+		result = dict()
+		queryFrom = ""
+		try:
+			try:
+				resto_id = request.GET['restaurant_id']
+				queryFrom = "restaurant"
+
+			except:
+				try:
+					table_id = request.GET['table_id']
+					queryFrom = "customer"
+				except:
+					raise ValidationError("Invalid Key Received")
+
+			current_date = datetime.now().date()
+			if queryFrom in "restaurant":
+				print "Restaurant Type Query"
+				restaurantObject = Restaurant.objects.get(pk = resto_id)
+				requestsObject = CustomerRequests.objects.filter(restaurant = restaurantObject)
+				
+			elif queryFrom in 'customer':
+				print "query from customer"
+				try:
+					tableObject = Tables.objects.get(pk = table_id)
+					requestsObject = CustomerRequests.objects.filter(table = tableObject)
+				except Exception as E:
+					print E
+			returnList = []
+			for req in requestsObject :
+				if req.requestTime.date() == current_date:
+					returnList.append(req.serializeModel())
+						
+			result['status'] = 200
+			result['result'] = 'SUCCESS'
+			result['data'] = returnList
+
+		except Exception as error:
+			result['result'] = 2001
+			result['status'] = 'FAILURE'
+			result['error'] = str(error)
+			result['message'] = 'We do track IP addresses you know. We Will Find You. '
+
+		return JsonResponse(result)
+	def post(self, request):
+		# Create a new request from ->customer to restaurant
+		pass
+
+	def patch(self, request):
+		# Update request / request status
+		pass
+
+	def delete(self, request):
+		# Cancel request - > Customer end only. 
+		# 
+		pass

@@ -3,7 +3,12 @@
 body{
 	background: #eeeeee;
 }
-
+#main_content{
+	background: #eee;
+}
+#container{
+	background: rgb(38, 138, 138);
+}
 .glyphicon-menu-hamburger:hover{
 	opacity: 0.66;
 }

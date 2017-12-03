@@ -137,3 +137,28 @@ class RestaurantSetting(models.Model):
 		returnDict['timings'] = json.loads(self.timings)
 
 
+class CustomerRequests(models.Model):
+	table = models.ForeignKey(Tables)
+	restaurant = models.ForeignKey(Restaurant)
+	requestTypes = (("Other", "Other"),("Cutlery","Cutlery"),("Manager", "Manager"),("Menu Item Query", "Menu Item Query"), ("Unsatisfied","Unsatisfied"))
+	requestType = models.CharField(choices = requestTypes , max_length = 50, null=False, blank=False, default = "Other")
+	requestTime = models.DateTimeField(default = timezone.now())
+	requestDetails = models.TextField(null=False, blank=False)
+	requestStatusChoices= (("Received", "Received"), ('Acknowledged', 'Acknowledged'), ('Completed', 'Completed'))
+	requestStatus = models.CharField(choices = requestStatusChoices, max_length=20)
+
+	def serializeModel(self):
+		returnDict = dict()
+		returnDict['request_id'] = self.pk
+		returnDict['table'] = self.table.serializeModel()
+		returnDict['request_type'] = self.requestType
+		returnDict['request_time'] = str(self.requestTime)
+		returnDict['request_details'] = self.requestDetails
+		returnDict['requestStatus'] = self.requestStatus
+
+		return returnDict
+
+	class Meta :
+		verbose_name = 'Customer Request'
+		verbose_name_plural = 'Customer Requests'
+		

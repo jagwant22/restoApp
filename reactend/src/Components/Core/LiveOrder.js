@@ -18,7 +18,8 @@ export default class LiveOrder extends Component{
 
     constructor(props){
         super(props);
-        console.log(this.props.id);
+        this.updateOrders();
+        this.updateTables();
         this.state = {
             pending_orders:[],
             table_info :[]
