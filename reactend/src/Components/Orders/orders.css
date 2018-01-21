@@ -1,0 +1,16 @@
+.container{
+	background: white;
+	margin-top: 1%;
+	padding:2%;
+	min-height: 80vh;
+	border-radius: 5px;
+	box-shadow: 1px 1px 7px 1px #ccc;
+}
+
+#orderFilterItemRow{
+
+	background: #eee;
+	height: 40px;
+	padding: 1%;
+
+}

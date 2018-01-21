@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './DashSidebar.css';
 import food from './assets/images/icons/food.svg';
+import {Link} from 'react-router-dom';
 
 class Sidebar extends React.Component{
     constructor(props){
@@ -56,8 +57,8 @@ class Sidebar extends React.Component{
                             <hr id='nav_hr' />
                         </center>
                         <ul id='sidenav_ul'>
-                        <a className='sidenav_btn'><li className='sidenav_item'>Home <i className='glyphicon glyphicon-home sidebar_icon'></i></li></a>
-                        <a className='sidenav_btn' ><li className='sidenav_item'>Orders<i className='glyphicon glyphicon-cutlery sidebar_icon'></i></li></a>
+                        <a href='/main/dashboard' className='sidenav_btn'><li className='sidenav_item'>Home <i className='glyphicon glyphicon-home sidebar_icon'></i></li></a>
+                        <a href='/main/orders/' className='sidenav_btn' ><li className='sidenav_item'>Orders<i className='glyphicon glyphicon-cutlery sidebar_icon'></i></li></a>
                         <a className='sidenav_btn' ><li className='sidenav_item'>Menus<i className='glyphicon glyphicon-list-alt sidebar_icon'></i></li></a>
                         <a className='sidenav_btn' ><li className='sidenav_item'>Promotions and Offers<i className='glyphicon glyphicon-tag sidebar_icon'></i></li></a>
                         <a className='sidenav_btn'><li className='sidenav_item'>Settings<i className='glyphicon glyphicon-cog sidebar_icon'></i></li></a>
